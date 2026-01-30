@@ -1,23 +1,16 @@
-cmake_minimum_required(VERSION 3.10)
+# Clang Library Configuration
 
-project(ExampleProject)
+cmake_minimum_required(VERSION 3.0)
 
-set(CMAKE_CXX_STANDARD 14)
+project(ConstructorGenerator)
 
-# Find Clang and LLVM
-find_package(LLVM REQUIRED CONFIG)
-include_directories(${LLVM_INCLUDE_DIRS})
+# Find Clang library
+find_package(Clang REQUIRED)
 
-add_definitions(${LLVM_DEFINITIONS})
+# Include directories
+include_directories(${CLANG_INCLUDE_DIRS})
 
-# Include source files
-set(SOURCES
-    main.cpp
-    # Add more source files here
-)
+# Link Clang libraries
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CLANG_LIBRARIES}")
 
-add_executable(ExampleProject ${SOURCES})
-
-# Link libraries
-llvm_map_components_to_libnames(llvm_libs core)
-target_link_libraries(ExampleProject ${llvm_libs})
+add_executable(ConstructorGenerator main.cpp)    
